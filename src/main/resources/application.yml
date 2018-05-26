@@ -1,0 +1,16 @@
+server.port: 8081
+
+spring:
+  security:
+    user:
+      name: admin
+      password: password
+      roles: USER
+  jackson:
+    serialization:
+      INDENT_OUTPUT: true
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    com.jmsamples: DEBUG
