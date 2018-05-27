@@ -56,17 +56,19 @@
         private void populateChildLinks(Page page) {
             if (!page.getUrl().isEmpty()) {
                 Document document = documentStrategy.getDocument(page);
-                Elements childLinks = document.select("a[href]");
-                for (Element link : childLinks) {
-                    String childUrl = link.attr("abs:href");
-                    if (childUrl.isEmpty()) {
-                        childUrl = link.attr("href");
+                if (document != null) {
+                    Elements childLinks = document.select("a[href]");
+                    for (Element link : childLinks) {
+                        String childUrl = link.attr("abs:href");
+                        if (childUrl.isEmpty()) {
+                            childUrl = link.attr("href");
+                        }
+                        String title = link.text();
+                        //remove trailing slash (reduce duplicate links)
+                        childUrl = childUrl.replaceAll("/$", "");
+                        Page newPage = new Page(childUrl, title, page.getDepth() + 1);
+                        page.addNode(newPage);
                     }
-                    String title = link.text();
-                    //remove trailing slash (reduce duplicate links)
-                    childUrl = childUrl.replaceAll("/$", "");
-                    Page newPage = new Page(childUrl, title, page.getDepth() + 1);
-                    page.addNode(newPage);
                 }
             }
         }
@@ -78,8 +80,9 @@
             long endTime = System.currentTimeMillis();
 
             HashSet<Page> initialDocs = new HashSet<>();
-            initialDocs.add(new Page("http://localhost:8000/index.html", 0));
-            int MAX_DEPTH = 3;
+            //initialDocs.add(new Page("http://localhost:8000/index.html", 0));
+            initialDocs.add(new Page("https://reddit.com", 0));
+            int MAX_DEPTH = 1;
             Collection<Page> json = crawler.visit(initialDocs, MAX_DEPTH);
             LOG.debug("json is: " + json);
 
