@@ -51,10 +51,14 @@ admin/password
 ~~~
 The site will be crawled and a representation json will be displayed
 
+
+### Demonstration of crawling supplied Test Pages
 ![screen recording](assets/simple-crawler1.gif "Screen shot")
     
+### Demonstration of packaged Test Pages
 ![screen recording](assets/simple-crawler2.gif "Screen shot")
 
+### Demonstration of crawling New York Time website at depth = 2
 ![screen recording](assets/simple-crawler3.gif "Screen shot")
             
     
