@@ -37,7 +37,8 @@ public class CrawlerController {
                                                                      @RequestParam(value="depth", required = false, defaultValue=CONST_DEFAULT_MAX_DEPTH) Integer maxDepth) {
         LOG.info("crawl-deferred initiated, param: url: " + url);
 
-        DeferredResult<Collection<Page>> deferredResult = new DeferredResult<>();
+        //Set long timeout
+        DeferredResult<Collection<Page>> deferredResult = new DeferredResult<>(0L);
         CompletableFuture.supplyAsync(() -> {
             return taskService.execute(url, maxDepth);
         }).whenCompleteAsync((result, throwable) -> deferredResult.setResult(result));
