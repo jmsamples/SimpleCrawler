@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
 
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 
 @AllArgsConstructor
 @ToString
-public class Page {
+public class Page implements Comparable<Page> {
     @Getter
     private String url;
     private String title;
@@ -51,4 +52,8 @@ public class Page {
         return nodes;
     }
 
+    @Override
+    public int compareTo(Page o) {
+        return this.getUrl().compareTo(o.getUrl());
+    }
 }
